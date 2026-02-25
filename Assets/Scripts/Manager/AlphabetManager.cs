@@ -6,20 +6,9 @@ public class AlphabetManager : MonoBehaviour
     private bool gameOver = false;
     private bool gameWon = false;
 
-    public char GetCurrentTarget()
-    {
-        return currentTarget;
-    }
-
-    public bool IsGameOver()
-    {
-        return gameOver;
-    }
-
-    public bool IsGameWon()
-    {
-        return gameWon;
-    }
+    public char GetCurrentTarget() => currentTarget;
+    public bool IsGameOver() => gameOver;
+    public bool IsGameWon() => gameWon;
 
     public bool CheckLetter(char selectedLetter)
     {
@@ -28,23 +17,19 @@ public class AlphabetManager : MonoBehaviour
 
         if (selectedLetter == currentTarget)
         {
+            AudioManager.Instance?.PlayCorrect();
+
             if (currentTarget == 'Z')
-            {
                 gameWon = true;
-                Debug.Log("YOU WIN!");
-            }
             else
-            {
                 currentTarget++;
-                Debug.Log("Correct! Next letter: " + currentTarget);
-            }
 
             return true;
         }
         else
         {
+            AudioManager.Instance?.PlayWrong();
             gameOver = true;
-            Debug.Log("WRONG LETTER! GAME OVER");
             return false;
         }
     }

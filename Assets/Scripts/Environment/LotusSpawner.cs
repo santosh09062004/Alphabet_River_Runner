@@ -3,63 +3,49 @@ using System.Collections.Generic;
 
 public class LotusSpawner : MonoBehaviour
 {
-    [Header("References")]
     public GameObject lotusPrefab;
-    public GameObject[] letterPrefabs; // 26 letters A–Z
+    public GameObject[] letterPrefabs;
     public AlphabetManager alphabetManager;
 
-    [Header("Grid Settings")]
     public float laneDistance = 2.5f;
     public float forwardStep = 2.5f;
 
     private float nextSpawnZ;
-
     private GameObject currentStandingLotus;
     private List<GameObject> currentChoices = new List<GameObject>();
 
     void Start()
     {
-        SpawnStartingLotus();
-
+        currentStandingLotus = Instantiate(lotusPrefab, Vector3.zero, Quaternion.identity);
         nextSpawnZ = forwardStep;
-        SpawnChoiceRow();
+
+        SpawnChoiceRow(true); // First row must contain A
     }
 
-    void SpawnStartingLotus()
+    void SpawnChoiceRow(bool forceTarget = false)
     {
-        Vector3 startPos = new Vector3(0f, 0f, 0f);
-        currentStandingLotus = Instantiate(lotusPrefab, startPos, Quaternion.identity);
-    }
-
-    void SpawnChoiceRow()
-    {
-        currentChoices.Clear();
         if (alphabetManager.IsGameWon())
-        return;
-        // Determine player's current lane
+            return;
+
+        currentChoices.Clear();
+
         int playerLane = GetLaneFromPosition(currentStandingLotus.transform.position.x);
 
-        // Only allow reachable lanes
-        List<int> possibleLanes = new List<int>();
-        possibleLanes.Add(playerLane);
-
-        if (playerLane - 1 >= 0)
-            possibleLanes.Add(playerLane - 1);
-
-        if (playerLane + 1 <= 2)
-            possibleLanes.Add(playerLane + 1);
-
-        int correctLane = possibleLanes[Random.Range(0, possibleLanes.Count)];
+        List<int> reachable = new List<int> { playerLane };
+        if (playerLane - 1 >= 0) reachable.Add(playerLane - 1);
+        if (playerLane + 1 <= 2) reachable.Add(playerLane + 1);
 
         char targetLetter = alphabetManager.GetCurrentTarget();
         int targetIndex = targetLetter - 'A';
 
+        int correctLane = reachable[Random.Range(0, reachable.Count)];
+
         for (int lane = 0; lane < 3; lane++)
         {
-            float xPos = (lane - 1) * laneDistance;
-            Vector3 spawnPos = new Vector3(xPos, 0f, nextSpawnZ);
+            float x = (lane - 1) * laneDistance;
+            Vector3 pos = new Vector3(x, 0f, nextSpawnZ);
 
-            GameObject lotus = Instantiate(lotusPrefab, spawnPos, Quaternion.identity);
+            GameObject lotus = Instantiate(lotusPrefab, pos, Quaternion.identity);
             LotusLetter lotusLetter = lotus.GetComponent<LotusLetter>();
 
             if (lane == correctLane)
@@ -68,16 +54,14 @@ public class LotusSpawner : MonoBehaviour
             }
             else
             {
-                int randomIndex;
-
+                int rand;
                 do
                 {
-                    randomIndex = Random.Range(0, 26);
+                    rand = Random.Range(0, 26);
                 }
-                while (randomIndex == targetIndex);
+                while (rand == targetIndex);
 
-                char randomChar = (char)('A' + randomIndex);
-                lotusLetter.SetLetter(randomChar, letterPrefabs[randomIndex]);
+                lotusLetter.SetLetter((char)('A' + rand), letterPrefabs[rand]);
             }
 
             currentChoices.Add(lotus);
@@ -86,9 +70,9 @@ public class LotusSpawner : MonoBehaviour
         nextSpawnZ += forwardStep;
     }
 
-    public LotusLetter GetCurrentLotusLetter(int laneIndex)
+    public GameObject GetCurrentLotusObject(int laneIndex)
     {
-        return currentChoices[laneIndex].GetComponent<LotusLetter>();
+        return currentChoices[laneIndex];
     }
 
     public void OnPlayerLanded(int chosenLane)
@@ -96,26 +80,20 @@ public class LotusSpawner : MonoBehaviour
         if (currentStandingLotus != null)
             Destroy(currentStandingLotus);
 
-        currentStandingLotus = currentChoices[chosenLane];
+        GameObject chosen = currentChoices[chosenLane];
+        currentStandingLotus = chosen;
 
         for (int i = 0; i < currentChoices.Count; i++)
-        {
-            if (i != chosenLane && currentChoices[i] != null)
+            if (i != chosenLane)
                 Destroy(currentChoices[i]);
-        }
 
-        if (!alphabetManager.IsGameWon())
-        {
-            SpawnChoiceRow();
-        }
-
-        
+        SpawnChoiceRow();
     }
 
-    int GetLaneFromPosition(float xPos)
+    int GetLaneFromPosition(float x)
     {
-        if (xPos < -0.1f) return 0;
-        if (xPos > 0.1f) return 2;
+        if (x < -0.1f) return 0;
+        if (x > 0.1f) return 2;
         return 1;
     }
 }
