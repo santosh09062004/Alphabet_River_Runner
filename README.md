@@ -16,21 +16,21 @@ https://github.com/santosh09062004/Alphabet_River_Runner.git
 
 ---
 
-\## 🚀 Game Concept
+## 🚀 Game Concept
 
 The player moves across a river by jumping between lotus platforms arranged in three lanes.  
 
 Each lotus contains a letter. The player must land on the correct next alphabet letter.
 
-\- Correct jump → Letter disappears and game continues
+- Correct jump → Letter disappears and game continues
 
-\- Wrong jump → Player falls into the river (Game Over)
+- Wrong jump → Player falls into the river (Game Over)
 
-\- Reach Z → You Win
+- Reach Z → You Win
 
 ---
 
-\## 🎮 Controls
+## 🎮 Controls
 
 
 | Key | Action |
@@ -47,36 +47,36 @@ Each lotus contains a letter. The player must land on the correct next alphabet 
 ---
 
 
-\## 🧠 Gameplay Features
+## 🧠 Gameplay Features
 
-\- 3-lane movement system
+- 3-lane movement system
 
-\- Smooth parabolic jump animation
+- Smooth parabolic jump animation
 
-\- Idle, Jump, and Fall animations
+- Idle, Jump, and Fall animations
 
-\- A → Z progression system
+- A → Z progression system
 
-\- Game Over and Win screens
+- Game Over and Win screens
 
-\- Main Menu with Play and Quit
+- Main Menu with Play and Quit
 
-\- Skybox and environment setup
+- Skybox and environment setup
 
-\- Windows executable build support
+- Windows executable build support
 
 ---
 
-\## 🏗 Built With
+## 🏗 Built With
 
 
-\- Unity (3D Core / Built-in Render Pipeline)
+- Unity (3D Core / Built-in Render Pipeline)
 
-\- C#
+- C#
 
-\- Mixamo animations
+- Mixamo animations
 
-\- Standard Shader materials
+- Standard Shader materials
 
 ---
 
@@ -84,25 +84,25 @@ Each lotus contains a letter. The player must land on the correct next alphabet 
 
 Successfully reach the letter \*\*Z\*\*.
 
-\## 💀 Lose Condition
+## 💀 Lose Condition
 
 Landing on the wrong letter causes the player to fall into the river.
 
 ---
 
-\## 🖥 Build Information
+## 🖥 Build Information
 
 
 
-\- Platform: Windows (x86\_64)
+- Platform: Windows (x86\_64)
 
-\- Built using Unity Standalone Build
+- Built using Unity Standalone Build
 
-\- Includes Main Menu and Gameplay Scene
+- Includes Main Menu and Gameplay Scene
 
 ---
 
-\## 📌 Version
+## 📌 Version
 
 Release v1.0  
 
@@ -110,7 +110,7 @@ Final submission build
 
 ---
 
-\## 👨‍💻 Author
+## 👨‍💻 Author
 
 Santosh M
 Unity Developer
