@@ -70,6 +70,7 @@ public class PlayerJumpTeleport : MonoBehaviour
             animator.SetTrigger("JumpTrigger");
 
         currentZ += forwardStep;
+        AudioManager.Instance?.PlayJump();
 
         Vector3 targetPosition = new Vector3(
             (currentLane - 1) * laneDistance,
@@ -90,7 +91,6 @@ public class PlayerJumpTeleport : MonoBehaviour
         while (time < jumpDuration)
         {
             float t = time / jumpDuration;
-
             float height = 4f * jumpHeight * t * (1f - t);
 
             Vector3 pos = Vector3.Lerp(start, target, t);
@@ -112,6 +112,9 @@ public class PlayerJumpTeleport : MonoBehaviour
     {
         GameObject landedLotus = lotusSpawner.GetCurrentLotusObject(currentLane);
 
+        if (landedLotus == null)
+            return;
+
         LotusLetter lotusLetter = landedLotus.GetComponent<LotusLetter>();
         char landedLetter = lotusLetter.GetLetter();
 
@@ -119,7 +122,7 @@ public class PlayerJumpTeleport : MonoBehaviour
 
         if (correct)
         {
-            // Remove letter visually
+            // 🔥 REMOVE LETTER VISUAL HERE
             lotusLetter.RemoveLetterVisual();
 
             lotusSpawner.OnPlayerLanded(currentLane);
@@ -135,7 +138,6 @@ public class PlayerJumpTeleport : MonoBehaviour
         isJumping = true;
         hasFallen = true;
 
-        // Disable collider so nothing blocks falling
         Collider col = GetComponent<Collider>();
         if (col != null)
             col.enabled = false;
