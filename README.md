@@ -1,4 +1,4 @@
-\# Alphabet River Runner 🎮
+# Alphabet River Runner 🎮
 
 Alphabet River Runner is a 3-lane educational runner game built in Unity (3D Core).  
 
