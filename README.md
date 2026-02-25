@@ -82,7 +82,7 @@ Each lotus contains a letter. The player must land on the correct next alphabet 
 
 ## 🏆 Win Condition
 
-Successfully reach the letter \*\*Z\*\*.
+Successfully reach the letter **Z**.
 
 ## 💀 Lose Condition
 
@@ -94,7 +94,7 @@ Landing on the wrong letter causes the player to fall into the river.
 
 
 
-- Platform: Windows (x86\_64)
+- Platform: Windows (x86_64)
 
 - Built using Unity Standalone Build
 
@@ -112,12 +112,12 @@ Final submission build
 
 ## 👨‍💻 Author
 
-Santosh M
+Santosh M - 
 Unity Developer
 
 ---
 
-\## 📜 License
+## 📜 License
 
 This project is created for academic/educational purposes.
 
